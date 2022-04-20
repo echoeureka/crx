@@ -5,6 +5,7 @@ import manifest from './src/manifest'
 import zip from 'rollup-plugin-zip'
 import { resolve } from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -19,6 +20,13 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', 'vue/macros', '@vueuse/core'],
       dts: 'src/auto-imports.d.ts'
+    }),
+    Components({
+      // allow auto load markdown components under `./src/components/`
+      extensions: ['vue'],
+      // allow auto import and register components used in markdown
+      include: [/\.vue$/, /\.vue\?vue/],
+      dts: 'src/components.d.ts'
     }),
     vue({
       reactivityTransform: true

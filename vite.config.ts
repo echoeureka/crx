@@ -14,5 +14,11 @@ export default defineConfig({
       '~/': `${resolve(__dirname, 'src')}/`
     }
   },
-  plugins: [vue(), crx({ manifest }), isProd && zip({ dir: 'releases' })]
+  plugins: [
+    vue({
+      reactivityTransform: true
+    }),
+    crx({ manifest }),
+    isProd && zip({ dir: 'releases' })
+  ]
 })

@@ -4,6 +4,7 @@ import { crx } from 'rollup-plugin-chrome-extension'
 import manifest from './src/manifest'
 import zip from 'rollup-plugin-zip'
 import { resolve } from 'path'
+import AutoImport from 'unplugin-auto-import/vite'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -15,6 +16,10 @@ export default defineConfig({
     }
   },
   plugins: [
+    AutoImport({
+      imports: ['vue', 'vue/macros', '@vueuse/core'],
+      dts: 'src/auto-imports.d.ts'
+    }),
     vue({
       reactivityTransform: true
     }),
